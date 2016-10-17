@@ -2,7 +2,6 @@
 
 const assert = require('chai').assert
 const testPlugin = require('..')
-const uuid = require('uuid4')
 
 const Plugin = testPlugin.plugin
 
