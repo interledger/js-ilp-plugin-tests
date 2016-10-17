@@ -36,9 +36,9 @@ describe('Plugin transfers (optimistic)', function () {
     if (this.pluginB.isConnected()) yield this.pluginB.disconnect()
   })
 
-  describe('send', function () {
+  describe('sendTransfer', function () {
     it('should be a function', function () {
-      assert.isFunction(this.pluginA.send)
+      assert.isFunction(this.pluginA.sendTransfer)
     })
 
     it('should send an optimistic transfer with amount 1', function (done) {
@@ -53,7 +53,7 @@ describe('Plugin transfers (optimistic)', function () {
         done()
       })
 
-      this.pluginA.send(Object.assign({
+      this.pluginA.sendTransfer(Object.assign({
         id: id,
         amount: '1.0',
       }, transferA)).catch(done)
@@ -69,7 +69,7 @@ describe('Plugin transfers (optimistic)', function () {
         done()
       })
 
-      this.pluginA.send(Object.assign({
+      this.pluginA.sendTransfer(Object.assign({
         id: id,
         amount: '1.0',
       }, transferA)).catch(done)
@@ -85,7 +85,7 @@ describe('Plugin transfers (optimistic)', function () {
         done()
       })
 
-      this.pluginA.send(Object.assign({
+      this.pluginA.sendTransfer(Object.assign({
         id: id,
         amount: '1.0',
       }, transferA)).catch(done)
@@ -99,7 +99,7 @@ describe('Plugin transfers (optimistic)', function () {
         assert.equal(transfer.amount - 0, 1.0)
         assert.equal(transfer.account, transferB.account)
 
-        this.pluginA.send(Object.assign({
+        this.pluginA.sendTransfer(Object.assign({
           id: id,
           amount: '1.0',
         }, transferA))
@@ -109,7 +109,7 @@ describe('Plugin transfers (optimistic)', function () {
           .catch(done)
       })
 
-      this.pluginA.send(Object.assign({
+      this.pluginA.sendTransfer(Object.assign({
         id: id,
         amount: '1.0',
       }, transferA)).catch(done)
@@ -123,7 +123,7 @@ describe('Plugin transfers (optimistic)', function () {
         assert.equal(transfer.amount - 0, 1.0)
         assert.equal(transfer.account, transferB.account)
 
-        this.pluginB.send(Object.assign({
+        this.pluginB.sendTransfer(Object.assign({
           id: id,
           amount: '1.1',
         }, transferA))
@@ -137,7 +137,7 @@ describe('Plugin transfers (optimistic)', function () {
           .catch(done)
       })
 
-      this.pluginA.send(Object.assign({
+      this.pluginA.sendTransfer(Object.assign({
         id: id,
         amount: '1.0',
       }, transferA)).catch(done)
@@ -146,7 +146,7 @@ describe('Plugin transfers (optimistic)', function () {
     it('should reject optimistic transfer with amount 0', function (done) {
       const id = uuid()
 
-      this.pluginA.send(Object.assign({
+      this.pluginA.sendTransfer(Object.assign({
         id: id,
         amount: '0'
       }, transferA)).catch((e) => {
@@ -158,7 +158,7 @@ describe('Plugin transfers (optimistic)', function () {
     it('should reject optimistic transfer with amount -1', function (done) {
       const id = uuid()
 
-      this.pluginA.send(Object.assign({
+      this.pluginA.sendTransfer(Object.assign({
         id: id,
         amount: '-1.0',
       }, transferA)).catch((e) => {
@@ -170,7 +170,7 @@ describe('Plugin transfers (optimistic)', function () {
     it('should reject a transfer missing `account`', function (done) {
       const id = uuid()
 
-      this.pluginA.send(Object.assign({
+      this.pluginA.sendTransfer(Object.assign({
         id: id,
         amount: '1.0',
       }, transferA, {
@@ -182,7 +182,7 @@ describe('Plugin transfers (optimistic)', function () {
     })
 
     it('should reject a transfer missing `id`', function (done) {
-      this.pluginA.send(Object.assign({
+      this.pluginA.sendTransfer(Object.assign({
         amount: '1.0',
       }, transferA, {
         account: undefined
@@ -195,7 +195,7 @@ describe('Plugin transfers (optimistic)', function () {
     it('should reject a transfer missing `amount`', function (done) {
       const id = uuid()
 
-      this.pluginA.send(Object.assign({
+      this.pluginA.sendTransfer(Object.assign({
         id: id,
         amount: undefined,
       }, transferA))
@@ -208,7 +208,7 @@ describe('Plugin transfers (optimistic)', function () {
     it('should reject a transfer with a malformed `amount`', function (done) {
       const id = uuid()
 
-      this.pluginA.send(Object.assign({
+      this.pluginA.sendTransfer(Object.assign({
         id: id,
         amount: 'garbage',
       }, transferA))
@@ -240,7 +240,7 @@ describe('Plugin transfers (optimistic)', function () {
           })
       })
 
-      this.pluginA.send(Object.assign({
+      this.pluginA.sendTransfer(Object.assign({
         id: id,
         amount: '1.0',
       }, transferA)).catch(done)
